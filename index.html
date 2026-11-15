@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mohamed Hesham | Backend Engineer, PHP &amp; Laravel</title>
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("theme")||"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}document.documentElement.classList.add("js")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -27,23 +28,62 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 nav{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
 .logo{font:500 20px "IBM Plex Mono",monospace;color:var(--accent);text-decoration:none}
 nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:15px}
-nav ul a{text-decoration:none;color:var(--muted)}
+nav ul a{position:relative;display:inline-block;padding:6px 0;text-decoration:none;color:var(--muted);transition:color .2s ease}
+nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,#00d4ff,#8b7bff);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+nav ul a:hover::after,nav ul a.active::after{transform:scaleX(1)}
+nav ul a.active{color:var(--ink)}
 nav ul a:hover,nav ul a:focus-visible{color:var(--ink)}
 a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
-.hero{display:grid;grid-template-columns:1fr;gap:48px;align-items:center;padding:72px 0 48px}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;padding:72px 0 48px}
 .hero h1{font-size:clamp(40px,6vw,72px);font-weight:800;letter-spacing:-.02em}
 .role{font:400 16px "IBM Plex Mono",monospace;color:var(--accent);margin:14px 0 20px}
 .hero p{color:var(--muted);max-width:56ch;margin:0 0 28px}
 .grad,.stat b{background:linear-gradient(90deg,#00d4ff,#8b7bff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:72px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px 16px;text-align:center}
 .stat b{display:block;font:800 clamp(34px,5vw,52px)/1.1 Outfit,sans-serif;margin-bottom:8px}
 .stat span{color:var(--muted);font-size:15px}
+:root[data-theme="light"]{--bg:#f4f6fb;--surface:#ffffff;--ink:#0d1330;--muted:#4a5578;--line:#d8def0;--accent:#0a66c8;--accent-ink:#04122b;color-scheme:light}
+:root[data-theme="light"] .grad,:root[data-theme="light"] .stat b{background-image:linear-gradient(90deg,#0a7dd6,#6a4cf0)}
+.theme{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:17px;line-height:1;display:grid;place-items:center;flex:none;transition:border-color .2s ease,transform .2s ease}
+.theme:hover{border-color:var(--accent);transform:rotate(18deg)}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes shift{to{background-position:100% 0}}
+.hero h1,.hero .role,.hero p,.hero .btns{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.hero .role{animation-delay:.12s}.hero p{animation-delay:.24s}.hero .btns{animation-delay:.36s}
+.grad{background-size:200% 100%;animation:shift 5s ease-in-out infinite alternate}
+.skill,.proj,.stat{transition:transform .25s ease,border-color .25s ease}
+.skill:hover,.proj:hover,.stat:hover{transform:translateY(-4px);border-color:var(--accent)}
+.js .reveal{opacity:0;translate:0 22px;transition:opacity .6s ease,translate .6s cubic-bezier(.2,.7,.2,1),transform .25s ease,border-color .25s ease}
+.js .reveal.in{opacity:1;translate:0 0}
+main{position:relative}
+.progress{position:fixed;left:0;top:env(safe-area-inset-top,0px);height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#00d4ff,#8b7bff);z-index:40}
+.orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.32}
+.orb.a{width:340px;height:340px;background:#00d4ff;top:-80px;left:-60px;animation:float 14s ease-in-out infinite alternate}
+.orb.b{width:300px;height:300px;background:#8b7bff;top:140px;right:-40px;animation:float 18s ease-in-out infinite alternate-reverse}
+:root[data-theme="light"] .orb{opacity:.16}
+@keyframes float{to{transform:translate(50px,40px) scale(1.15)}}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(0,212,255,.6)}100%{box-shadow:0 0 0 14px rgba(0,212,255,0)}}
+.role::after{content:"";display:inline-block;width:8px;height:1em;background:var(--accent);margin-left:4px;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.btn{transition:transform .2s ease,box-shadow .2s ease}
+.btn:hover{box-shadow:0 8px 24px rgba(0,212,255,.25)}
+.btn.primary{background-size:200% 100%;transition:background-position .4s ease,transform .2s ease,box-shadow .2s ease}
+.btn.primary:hover{background-position:100% 0}
+.skill:hover,.proj:hover{box-shadow:0 10px 30px rgba(0,212,255,.12)}
+.js .job.reveal{translate:-48px 0}
+.js .job:nth-child(even).reveal{translate:48px 0}
+.js .job.reveal.in{translate:0 0}
+.job.in::before{animation:ping 2.2s ease-out 2}
+@media (max-width:820px){.js .job.reveal,.js .job:nth-child(even).reveal{translate:0 22px}.js .job.reveal.in{translate:0 0}}
+@media (max-width:820px){nav{gap:10px}nav ul{min-width:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none}nav ul::-webkit-scrollbar{display:none}}
+@media (prefers-reduced-motion:reduce){.hero h1,.hero .role,.hero p,.hero .btns,.grad{animation:none}.js .reveal{opacity:1;translate:none;transition:none}.theme:hover{transform:none}.orb,.job.in::before,.role::after{animation:none}.progress{display:none}}
 @media (max-width:560px){.stats{gap:10px}.stat{padding:20px 8px}}
 .btns{display:flex;flex-wrap:wrap;gap:12px}
 .btn{display:inline-block;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:500;border:1.5px solid var(--accent)}
 .btn.primary{background:linear-gradient(90deg,#00d4ff,#8b7bff);border-color:transparent;color:var(--accent-ink)}
 .btn:hover{transform:translateY(-1px)}
+.btn.icon{width:50px;height:50px;padding:0;display:grid;place-items:center;font-weight:800;font-size:18px}
 .code{background:var(--code-bg);color:var(--code-ink);border-radius:12px;padding:20px 22px;font:400 14px/1.75 "IBM Plex Mono",ui-monospace,Menlo,monospace;overflow-x:auto}
 .code .bar{color:#8391b0;margin-bottom:10px}
 .code .bar b{color:#8be0b0;font-weight:500}
@@ -58,9 +98,15 @@ section>.wrap>h2{font-size:clamp(30px,4.5vw,44px);letter-spacing:-.02em;margin-b
 .skill h3{font-size:20px;margin-bottom:12px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
 .tags li{font:400 13px "IBM Plex Mono",monospace;padding:4px 10px;border:1px solid var(--line);border-radius:6px;background:var(--bg)}
-.timeline{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line)}
-.job{position:relative;padding:0 0 38px 22px}
-.job::before{content:"";position:absolute;left:-30px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.timeline{list-style:none;margin:0;padding:0;position:relative}
+.timeline::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--line)}
+.job{position:relative;width:calc(50% - 36px);background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:0 0 28px}
+.job:nth-child(even){margin-left:calc(50% + 36px)}
+.job::before{content:"";position:absolute;top:26px;right:-44px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--accent)}
+.job:nth-child(even)::before{right:auto;left:-44px}
+@media (max-width:820px){.timeline::before{left:7px}.job,.job:nth-child(even){width:auto;margin-left:30px}.job::before,.job:nth-child(even)::before{left:-31px;right:auto}}
+
+
 .job h3{font-size:22px}
 .meta{color:var(--muted);font-size:15px;margin:4px 0 10px}
 .job ul{margin:0;padding-left:18px;color:var(--muted)}
@@ -73,6 +119,19 @@ section>.wrap>h2{font-size:clamp(30px,4.5vw,44px);letter-spacing:-.02em;margin-b
 .proj a.link{font-weight:500;color:var(--accent);text-decoration:none;word-break:break-all;font-size:15px}
 .proj a.link:hover{text-decoration:underline}
 .contact-list{display:flex;flex-wrap:wrap;gap:14px;margin-top:8px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;margin-top:8px}
+.contact-left{display:grid;gap:16px}
+.c-card{display:flex;align-items:center;gap:18px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;text-decoration:none;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.c-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 30px rgba(0,212,255,.12)}
+.c-ico{flex:none;width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,#00d4ff,#8b7bff);color:#04122b;display:grid;place-items:center}
+.c-ico svg{width:26px;height:26px}
+.c-txt{min-width:0;overflow-wrap:anywhere;color:var(--muted)}
+.c-txt b{display:block;font-size:18px;color:var(--ink)}
+.c-social{display:flex;gap:14px}
+.c-cta{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:36px}
+.c-cta h3{font-size:30px;margin-bottom:16px}
+.c-cta p{color:var(--muted);margin:0 0 28px}
+@media (max-width:820px){.contact-grid{grid-template-columns:1fr}.c-cta{padding:26px}}
 footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
 @media (max-width:820px){
   .hero{grid-template-columns:1fr;padding:48px 0 56px;gap:32px}
@@ -84,6 +143,7 @@ footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);f
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 <header>
   <div class="wrap">
     <nav aria-label="Main">
@@ -95,11 +155,13 @@ footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);f
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="theme" id="theme" type="button" aria-label="Switch between light and dark mode" title="Light / dark"></button>
     </nav>
   </div>
 </header>
 
 <main id="top">
+<div class="orbs" aria-hidden="true"><i class="orb a"></i><i class="orb b"></i></div>
 <div class="wrap">
   <div class="hero">
     <div>
@@ -108,18 +170,16 @@ footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);f
       <p>I build REST APIs, multi-tenant SaaS products and business systems with Laravel and MySQL. Over eight years I have shipped e-learning platforms, ERP systems, e-commerce tools and mobile-app backends.</p>
       <div class="btns">
         <a class="btn primary" href="#contact">Get in touch</a>
-        <a class="btn" href="#projects">See my projects</a>
         <a class="btn" href="Mohamed_Hesham_Backend_Engineer_CV.pdf" download>Download CV</a>
+        <a class="btn icon" href="https://linkedin.com/in/mohamed-hesham-5bb9ab14b" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        <a class="btn icon" href="https://github.com/Mohamed-Hesham-dev" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 16 16" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
       </div>
     </div>
-  </div>
-</div>
-
-<div class="wrap">
-  <div class="stats">
-    <div class="stat"><b>8+</b><span>Years experience</span></div>
-    <div class="stat"><b>7</b><span>Companies &amp; teams</span></div>
-    <div class="stat"><b>21</b><span>Selected projects</span></div>
+    <div class="stats">
+      <div class="stat"><b>8+</b><span>Years experience</span></div>
+      <div class="stat"><b>7</b><span>Companies &amp; teams</span></div>
+      <div class="stat"><b>+21</b><span>Selected projects</span></div>
+    </div>
   </div>
 </div>
 
@@ -195,12 +255,24 @@ footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);f
   <div class="wrap">
     <h2>Let’s work together</h2>
     <p class="lead">I’m open to backend roles and project work. Send me a message and I’ll reply as soon as I can.</p>
-    <div class="contact-list">
-      <a class="btn primary" href="mailto:mohamedhesham99119@gmail.com">Email me</a>
-      <a class="btn" href="tel:+201019141377">+20 101 914 1377</a>
-      <a class="btn" href="https://linkedin.com/in/mohamed-hesham-5bb9ab14b" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="https://github.com/Mohamed-Hesham-dev" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="Mohamed_Hesham_Backend_Engineer_CV.pdf" download>Download CV</a>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <a class="c-card" href="mailto:mohamedhesham99119@gmail.com"><span class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span class="c-txt"><b>Email</b>mohamedhesham99119@gmail.com</span></a>
+        <a class="c-card" href="tel:+201019141377"><span class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><span class="c-txt"><b>Phone</b>+20 101 914 1377</span></a>
+        <a class="c-card" href="https://wa.me/201019141377" target="_blank" rel="noopener"><span class="c-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.3 7.4L3 21l1.9-5.5A8.4 8.4 0 1 1 21 11.5z"/></svg></span><span class="c-txt"><b>WhatsApp</b>+20 101 914 1377</span></a>
+        <div class="c-social">
+          <a class="btn icon" href="https://linkedin.com/in/mohamed-hesham-5bb9ab14b" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+          <a class="btn icon" href="https://github.com/Mohamed-Hesham-dev" target="_blank" rel="noopener" aria-label="GitHub"><svg viewBox="0 0 16 16" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+        </div>
+      </div>
+      <div class="c-cta">
+        <h3>Ready to collaborate?</h3>
+        <p>I’m open to backend roles and project work. Whether you need a Laravel backend, an API or a new web system, send me a message and let’s talk.</p>
+        <div class="btns">
+          <a class="btn primary" href="mailto:mohamedhesham99119@gmail.com">Send Message</a>
+          <a class="btn" href="Mohamed_Hesham_Backend_Engineer_CV.pdf" download>Download CV</a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -209,5 +281,36 @@ footer{padding:32px 0 48px;border-top:1px solid var(--line);color:var(--muted);f
 <footer>
   <div class="wrap">© 2026 Mohamed Hesham. Backend Engineer, Cairo, Egypt.</div>
 </footer>
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById("theme");
+  function paint(){btn.textContent=root.getAttribute("data-theme")==="light"?"\u263E":"\u2600"}
+  paint();
+  btn.addEventListener("click",function(){
+    var next=root.getAttribute("data-theme")==="light"?"dark":"light";
+    root.setAttribute("data-theme",next);paint();
+    try{localStorage.setItem("theme",next)}catch(e){}
+  });
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches||!("IntersectionObserver" in window)){return}
+  function count(n){var m=n.textContent.match(/^(\d+)(.*)$/);if(!m)return;var to=+m[1],t0=null;requestAnimationFrame(function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/900,1);n.textContent=Math.round(to*(1-Math.pow(1-p,3)))+m[2];if(p<1)requestAnimationFrame(step)})}
+  var role=document.querySelector(".role");
+  if(role){var full=role.textContent,ci=0;role.textContent="";setTimeout(function type(){role.textContent=full.slice(0,++ci);if(ci<full.length)setTimeout(type,45)},600)}
+  var bar=document.getElementById("progress");
+  function prog(){var h=document.documentElement.scrollHeight-innerHeight;bar.style.transform="scaleX("+(h>0?scrollY/h:0)+")"}
+  addEventListener("scroll",prog,{passive:true});prog();
+  var links={};document.querySelectorAll("nav ul a").forEach(function(a){links[a.getAttribute("href").slice(1)]=a});
+  var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){Object.keys(links).forEach(function(k){links[k].classList.toggle("active",k===e.target.id)})}})},{rootMargin:"-45% 0px -50% 0px"});
+  document.querySelectorAll("main section[id]").forEach(function(s){spy.observe(s)});
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return;
+    var el=e.target;el.classList.add("in");io.unobserve(el);
+    if(el.classList.contains("stat"))count(el.querySelector("b"));
+    setTimeout(function(){el.style.transitionDelay=""},900);
+  })},{threshold:.15});
+  document.querySelectorAll(".skill,.job,.proj,.stat,section>.wrap>h2,section>.wrap>.lead,.c-card,.c-cta,.c-social").forEach(function(el,i){
+    el.classList.add("reveal");el.style.transitionDelay=(i%3)*80+"ms";io.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
